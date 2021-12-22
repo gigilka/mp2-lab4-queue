@@ -20,9 +20,10 @@ public:
 	bool IsFull();
 	void Push(T smt);
 	T Pop();
-
 	void Clear();
-
+	int getMsize();
+	int getCount();
+	int getFirst();
 	friend std::ostream& operator<<(std::ostream& out, const TQueue& q){
 		for (int t = q.count, i = q.first; t > 0; t--){
 			out << q.a[i] << ' ';
@@ -137,4 +138,18 @@ template <class T>
 void TQueue<T>::Clear(){
 	count = 0;
 	last = -1, first = 0;
+}
+template<class T>
+int TQueue<T>::getMsize() {
+	return msize;
+}
+
+template<class T>
+int TQueue<T>::getCount() {
+	return count;
+}
+
+template<class T>
+int TQueue<T>::getFirst() {
+	return first;
 }
