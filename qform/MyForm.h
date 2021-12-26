@@ -46,8 +46,8 @@ namespace qform {
 			WhitePen = gcnew Pen(SystemColors::Control);
 			WhitePen->Width = 10.0F;
 
-			CenterX = 105;
-			CenterY = 210;
+			CenterX = 120;
+			CenterY = 250;
 			Width = Height = 200;
 
 			PopCount = PushCount = 0;
@@ -239,7 +239,8 @@ namespace qform {
 			// 
 			// timer1
 			// 
-			this->timer1->Interval = 10;
+			this->timer1->Interval = 100;
+			this->timer1->Tick += gcnew System::EventHandler(this, &MyForm::timer1_Tick_1);
 			// 
 			// MyForm
 			// 
@@ -294,24 +295,6 @@ namespace qform {
 			   gr->DrawArc(WhitePen, CenterX, CenterY, Width, Height, start, finish);
 		   }
 
-	private: System::Void timer1_Tick(System::Object^ sender, System::EventArgs^ e) {
-		ClearField();
-		if (rnd1->NextDouble() < p) {
-			if (!DrawingQueue->IsFull()) {
-				DrawingQueue->Push(1);
-				PushCount++;
-			}
-		}
-		if (rnd1->NextDouble() < q) {
-			if (!DrawingQueue->IsEmpty()) {
-				DrawingQueue->Pop();
-				PopCount++;
-			}
-		}
-		DrawQueue();
-		richTextBox5->Text = Convert::ToString(PushCount);
-		richTextBox6->Text = Convert::ToString(PopCount);
-	}
 
 
 private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -323,6 +306,24 @@ private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e
 	richTextBox5->Text = Convert::ToString(PushCount);
 	richTextBox6->Text = Convert::ToString(PopCount);
 	
+}
+private: System::Void timer1_Tick_1(System::Object^ sender, System::EventArgs^ e) {
+	ClearField();
+	if (rnd1->NextDouble() < p) {
+		if (!DrawingQueue->IsFull()) {
+			DrawingQueue->Push(1);
+			PushCount++;
+		}
+	}
+	if (rnd1->NextDouble() < q) {
+		if (!DrawingQueue->IsEmpty()) {
+			DrawingQueue->Pop();
+			PopCount++;
+		}
+	}
+	DrawQueue();
+	richTextBox5->Text = Convert::ToString(PushCount);
+	richTextBox6->Text = Convert::ToString(PopCount);
 }
 };
 }
